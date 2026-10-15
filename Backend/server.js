@@ -56,24 +56,6 @@ io.on('connection', (socket) => {
       socket.emit("ai-message-error");
     }
 
-
-
-    // socket.on("ai-message", async (message) => {
-    //   try {
-    //     console.log("Ai message received:", message);
-
-    //     const response = await generateResponse(message);
-
-    //     socket.emit("ai-response", response);
-    //   } catch (error) {
-    //     console.error("AI request failed:", error.message);
-
-    //     socket.emit("ai-error", {
-    //       message: "AI अभी उपलब्ध नहीं है। कृपया थोड़ी देर बाद कोशिश करें।",
-    //     });
-    //   }
-
-
   });
 
 
@@ -82,9 +64,8 @@ io.on('connection', (socket) => {
 
 
 
+const PORT = process.env.PORT || 3000;
 
-
-httpServer.listen(3000, () => {
-  console.log('Server is running on port 3000');
+httpServer.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
