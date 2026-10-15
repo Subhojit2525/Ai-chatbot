@@ -9,15 +9,19 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('')
   const socketRef = useRef(null)
 
+
   useEffect(() => {
-    ```js
-const socket = io(
-  import.meta.env.VITE_SOCKET_URL ||
-  import.meta.env.VITE_SERVER_URL ||
-  'https://ai-chatbot-ff21.onrender.com'
-)
-```
+    const socket = io(
+      import.meta.env.VITE_SOCKET_URL ||
+      import.meta.env.VITE_SERVER_URL ||
+      'https://ai-chatbot-ff21.onrender.com'
+    )
+
     socketRef.current = socket
+
+
+
+   
 
     socket.on('connect', () => {
       setConnectionStatus('Connected')
