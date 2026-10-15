@@ -12,11 +12,27 @@ const { text } = require('stream/consumers');
 
 
 const httpServer = createServer(app);
+
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://ai-chatbot-one-blue.vercel.app",
+];
+
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS: " + origin));
+      }
+    },
   },
 });
+
+
 
 const chatHistory = [
 ]
