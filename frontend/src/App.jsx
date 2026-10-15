@@ -20,18 +20,19 @@ function App() {
     socketRef.current = socket
 
 
+    socket.on('connect_error', (err) => {
+      console.error('Socket connection failed:', err.message)
+      console.error('Error description:', err.description)
+      console.error('Error context:', err.context)
 
-   
-
-    socket.on('connect', () => {
-      setConnectionStatus('Connected')
-      setErrorMessage('')
-    })
-    socket.on('disconnect', () => setConnectionStatus('Disconnected'))
-    socket.on('connect_error', () => {
       setConnectionStatus('Disconnected')
-      setErrorMessage('Could not connect to the chat server. Check that it is running.')
+      setErrorMessage(
+        'Could not connect to the chat server. Check that it is running.'
+      )
     })
+
+
+
     socket.on('ai-message-response', (text) => {
       if (typeof text !== 'string' || !text.trim()) {
         setErrorMessage('The assistant returned an empty response. Please try again.')
