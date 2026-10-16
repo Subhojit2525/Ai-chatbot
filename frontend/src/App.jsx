@@ -19,6 +19,14 @@ function App() {
 
     socketRef.current = socket
 
+    socket.on('connect', () => {
+      setConnectionStatus('Connected')
+      setErrorMessage('')
+    })
+
+    socket.on('disconnect', () => {
+      setConnectionStatus('Disconnected')
+    })
 
     socket.on('connect_error', (err) => {
       console.error('Socket connection failed:', err.message)
@@ -49,6 +57,7 @@ function App() {
     })
 
     return () => {
+      socket.removeAllListeners()
       socket.disconnect()
       socketRef.current = null
     }
